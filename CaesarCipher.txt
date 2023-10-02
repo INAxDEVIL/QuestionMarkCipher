@@ -1,0 +1,30 @@
+public class CaesarCipher {
+    public static String encrypt(String plaintext, int shift) {
+        StringBuilder encryptedText = new StringBuilder();
+
+        for (int i = 0; i < plaintext.length(); i++) {
+            char currentChar = plaintext.charAt(i);
+
+            if (Character.isLetter(currentChar)) {
+                char base = (Character.isUpperCase(currentChar)) ? 'A' : 'a';
+                int originalAlphabetPosition = currentChar - base;
+                int newAlphabetPosition = (originalAlphabetPosition + shift) % 26;
+                char newChar = (char) (base + newAlphabetPosition);
+                encryptedText.append(newChar);
+            } else {
+                encryptedText.append(currentChar);
+            }
+        }
+
+        return encryptedText.toString();
+    }
+
+    public static void main(String[] args) {
+        String plaintext = "Hello, World!";
+        int shift = 3;
+        String encryptedText = encrypt(plaintext, shift);
+
+        System.out.println("Original Text: " + plaintext);
+        System.out.println("Encrypted Text: " + encryptedText);
+    }
+}
