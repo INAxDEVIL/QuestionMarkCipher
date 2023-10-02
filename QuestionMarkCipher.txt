@@ -1,0 +1,24 @@
+public class QuestionMarkCipher {
+    public static String encrypt(String plaintext) {
+        StringBuilder encryptedText = new StringBuilder();
+
+        for (int i = 0; i < plaintext.length(); i++) {
+            char currentChar = plaintext.charAt(i);
+            if (Character.isLetterOrDigit(currentChar) || Character.isWhitespace(currentChar)) {
+                encryptedText.append('?');
+            } else {
+                encryptedText.append(currentChar);
+            }
+        }
+
+        return encryptedText.toString();
+    }
+
+    public static void main(String[] args) {
+        String plaintext = "Hello, 123 World!";
+        String encryptedText = encrypt(plaintext);
+
+        System.out.println("Original Text: " + plaintext);
+        System.out.println("Encrypted Text: " + encryptedText);
+    }
+}
