@@ -1,0 +1,33 @@
+package com.inaxdevelopers.ffmpegcommand;
+import java.io.IOException;
+public class VideoProcessing {
+
+    public static void compressVideo(String inputPath, String outputPath)
+            throws IOException, InterruptedException {
+
+        String[] command = {"ffmpeg", "-i", inputPath, "-c:v", "libx264", "-preset", "medium", "-crf", "23", outputPath};
+
+        Process process = Runtime.getRuntime().exec(command);
+        process.waitFor();
+    }
+
+    public static void addWatermark(String inputPath, String watermarkPath, String outputPath)
+            throws IOException, InterruptedException {
+
+        String[] command = {"ffmpeg", "-i", inputPath, "-i", watermarkPath, "-filter_complex", "[0:v][1:v]overlay=5:5", "-c:v", "libx264", "-preset", "medium", "-crf", "23", outputPath};
+
+        Process process = Runtime.getRuntime().exec(command);
+        process.waitFor();
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String inputPath = "/path/to/your/video.mp4";
+        String watermarkPath = "/path/to/your/watermark.png";
+        String outputPath = "/path/to/compressed_watermarked.mp4";
+        // Compress video
+        compressVideo(inputPath, outputPath);
+        // Add watermark to compressed video
+        addWatermark(outputPath, watermarkPath, outputPath + "_watermarked.mp4");
+        System.out.println("Video compressed and watermarked successfully!");
+    }
+}
